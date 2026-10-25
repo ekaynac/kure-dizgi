@@ -1,0 +1,3 @@
+# Optional production tooling only; not vendored or covered by this project's MIT license.
+# PyMuPDF is dual-licensed under AGPL-3.0 or a commercial Artifex license.
+PyMuPDF==1.26.7

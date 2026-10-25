@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Küre Dizgi</title>
+<link rel="stylesheet" href="../vendor/quill.snow.css">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="editor.css">
+
+</head>
+<body>
+<header>
+  <h1>Küre Dizgi</h1>
+  <div class="views">
+    <button id="mode-3d" class="active">Tam küre</button>
+    <button id="mode-ring">Sabit uçlar</button>
+    <button id="mode-pair">Yaprak çifti</button>
+    <button id="mode-quad">Dörtlü komşuluk</button>
+  </div>
+  <div class="spacer"></div>
+  <div class="popbtns">
+    <button id="pb-page">Sayfa ayarları</button>
+    <button id="pb-globe">Küre</button>
+    <button id="pb-io">Dışa aktar · Veri</button>
+  </div>
+
+  <div class="pop" id="pop-page">
+    <h3>Sayfa ayarları</h3>
+    <label class="check"><input type="checkbox" id="bulk"> <strong>Tüm sayfalara uygula</strong></label>
+    <label class="field"><span class="fieldrow">Sayfa puntosu <output id="v-size"></output></span>
+      <input type="range" id="size" min="8" max="60" step="0.5"></label>
+    <label class="field"><span class="fieldrow">Satır aralığı <output id="v-leading"></output></span>
+      <input type="range" id="leading" min="0.9" max="2.6" step="0.05"></label>
+    <label class="field"><span class="fieldrow">Harf aralığı <output id="v-tracking"></output></span>
+      <input type="range" id="tracking" min="-2" max="14" step="0.5"></label>
+    <label class="field"><span class="fieldrow">Üst boşluk (°) <output id="v-top"></output></span>
+      <input type="range" id="top" min="0" max="44" step="0.5"></label>
+    <label class="field"><span class="fieldrow">İçerik başlangıcını ilerlet (°) <output id="v-shift"></output></span>
+      <input type="range" id="shift" min="0" max="80" step="1"></label>
+    <div class="row">
+      <label class="field"><span class="fieldrow">Uç marjı (°) <output id="v-margintip"></output></span>
+        <input type="range" id="margintip" min="0" max="60" step="1"></label>
+      <label class="field"><span class="fieldrow">Orta marjı (°) <output id="v-marginspine"></output></span>
+        <input type="range" id="marginspine" min="0" max="30" step="0.5"></label>
+    </div>
+    <hr class="sep">
+    <h3>Sütunlar</h3>
+    <label class="check"><input type="checkbox" id="cols"> İki sütun (dış + iç)</label>
+    <div class="row">
+      <label class="field"><span class="fieldrow">Dış sütun payı (%) <output id="v-ratio"></output></span>
+        <input type="range" id="ratio" min="20" max="70" step="1"></label>
+      <label class="field"><span class="fieldrow">Sütun arası (°) <output id="v-colgap"></output></span>
+        <input type="range" id="colgap" min="0.5" max="8" step="0.25"></label>
+    </div>
+    <hr class="sep">
+    <button class="btn secondary" id="copyall">Bu sayfanın ayarlarını tüm sayfalara kopyala</button>
+    <p class="hint">Uç marjı: sivri uçtan pay. Orta marjı: ortadaki çizgiden pay — bitişik dize için 0. Dış sütun daima sivri uç tarafındadır.</p>
+  </div>
+
+  <div class="pop" id="pop-globe">
+    <h3>Küre ve görünüm</h3>
+    <label class="field"><span class="fieldrow">Yarıçap (px) <output id="v-radius"></output></span>
+      <input type="range" id="radius" min="220" max="1100" step="10"></label>
+    <label class="field">Yazıtipi <input type="text" id="font"></label>
+    <label class="check"><input type="checkbox" id="showgrid" checked> Bölme çizgileri ve uç noktaları</label>
+    <button class="btn secondary" id="resetview">Görünümü sıfırla</button>
+  </div>
+
+  <div class="pop" id="pop-io">
+    <h3>Dışa aktar</h3>
+    <div class="row">
+      <button class="btn" id="dl-svg-pair">Bu yaprak çifti (SVG)</button>
+      <button class="btn secondary" id="dl-svg-all">8 çift şablon (SVG)</button>
+    </div>
+    <button class="btn secondary" id="dl-png">Görünüm PNG (3×)</button>
+    <hr class="sep">
+    <h3>Veri</h3>
+    <div class="row">
+      <button class="btn secondary" id="dl-json">Yedek indir (JSON)</button>
+      <button class="btn secondary" id="ul-json">Yedek yükle</button>
+    </div>
+    <button class="btn secondary" id="load-demo">Örnek yükle</button>
+    <p class="hint">Örnek yüklenmeden önce mevcut çalışmanın JSON yedeği indirilir ve onay istenir.</p>
+    <input type="file" id="jsonfile" accept=".json" hidden>
+    <hr class="sep">
+    <h3>Çalışma dosyası</h3>
+    <div class="row">
+      <button class="btn" id="fs-save">Dosyaya kaydet</button>
+      <button class="btn secondary" id="fs-open">Dosyadan aç</button>
+    </div>
+    <p class="hint" id="fs-status">Chrome/Edge: çalışma dosyasını seçtiğin yerel klasörde tut. Diğer tarayıcılarda JSON yedeğini indir/yükle.</p>
+    <p class="hint">Baskı öncesi SVG'yi Inkscape'te kontura çevir.</p>
+  </div>
+</header>
+
+<main>
+  <section class="left">
+    <div class="tabblock">
+      <div class="tabrow"><span class="rowlabel">Tekler</span><div class="tabs" id="tabs-odd"></div></div>
+      <div class="tabrow"><span class="rowlabel">Çiftler</span><div class="tabs" id="tabs-even"></div></div>
+    </div>
+    <div class="pagebar">
+      <p class="pageinfo" id="pageinfo"></p>
+      <div class="colchips" id="colchips">
+        <button id="col-out" class="active">Dış sütun</button>
+        <button id="col-in">İç sütun</button>
+      </div>
+    </div>
+    <div id="editorwrap">
+      <details id="advbar">
+        <summary>Gelişmiş metin ayarları</summary>
+        <div class="advwrap">
+          <div class="advcol">
+            <h4>Seçim (önce metni seç)</h4>
+            <div class="advgrid">
+              <span>Harf aralığı px</span><input type="number" id="adv-tracking" step="0.25" min="-5" max="30" placeholder="—">
+              <span>Genişlik %</span><input type="number" id="adv-hscale" step="1" min="50" max="200" placeholder="100">
+              <span>Kelime aralığı px</span><input type="number" id="adv-wordsp" step="0.5" min="-4" max="40" placeholder="—">
+              <span>Taban kayması px</span><input type="number" id="adv-baseline" step="0.5" min="-20" max="20" placeholder="—">
+            </div>
+          </div>
+          <div class="advcol">
+            <h4>Satır (imleç yeterli)</h4>
+            <div class="advgrid">
+              <span>Satır yüksekliği ×</span><input type="number" id="adv-lineheight" step="0.05" min="0.5" max="3" placeholder="sayfa">
+              <span>Satır harf aralığı px</span><input type="number" id="adv-linetracking" step="0.25" min="-5" max="30" placeholder="—">
+            </div>
+            <button class="btn secondary" id="adv-clear">Temizle</button>
+            <p class="hint">Yaslama (justify): araç çubuğundaki hizalama menüsünden, satır başına.</p>
+          </div>
+          <div class="advcol">
+            <h4>Yaslama sınırları (sayfa geneli)</h4>
+            <div class="advgrid">
+              <span>Kelime boşluğu min %</span><input type="number" id="jwmin" step="1" min="50" max="100">
+              <span>Kelime boşluğu max %</span><input type="number" id="jwmax" step="5" min="100" max="500">
+              <span>Glif daralma min %</span><input type="number" id="jgmin" step="0.5" min="80" max="100">
+              <span>Glif genişleme max %</span><input type="number" id="jgmax" step="0.5" min="100" max="120">
+            </div>
+          </div>
+        </div>
+      </details>
+      <div id="editor"></div>
+    </div>
+  </section>
+
+  <section class="right">
+    <p class="stagehint" id="stagehint"></p>
+    <div class="canvaswrap" id="canvaswrap">
+      <div class="canvasstack"><canvas id="cv" width="880" height="880"></canvas><canvas id="glcv" width="880" height="880"></canvas></div>
+    </div>
+  </section>
+</main>
+
+<script src="../vendor/quill.js"></script>
+<script src="../src/layout.js"></script>
+<script src="../examples/demo.js"></script>
+<script src="editor.js"></script>
+
+</body>
+</html>

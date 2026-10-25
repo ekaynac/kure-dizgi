@@ -1,0 +1,24 @@
+# Keep manuscripts and production artifacts outside the tool repository.
+/work/
+/output/
+/private/
+/ozel-arsiv/
+*.idml
+*.indd
+*.idlk
+*.sla
+*.pdf
+*.docx
+*.xcf
+*.bak
+kure-calisma.json
+kure-dizgi-yedek.json
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.DS_Store
+Thumbs.db

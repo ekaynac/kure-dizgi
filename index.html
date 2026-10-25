@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Şiiri küre üzerinde düzenlemek ve kitap için ölçülü baskı projeksiyonları üretmek için açık kaynak araçlar.">
+<title>Küre Dizgi</title>
+<style>body{max-width:900px;margin:40px auto;padding:0 24px;font:17px/1.6 system-ui,sans-serif;color:#222;background:#faf9f6}h1{font-size:36px;margin-bottom:0}h2{font-size:22px}a{color:#225586}.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin:24px 0}.card{display:block;border:1px solid #bbb;border-radius:8px;padding:20px;background:white;color:inherit;text-decoration:none}.card strong{display:block;color:#225586;font-size:21px}.note{border-left:4px solid #a5824f;padding:8px 16px;background:#eee9df}code{font-size:.9em}</style>
+</head>
+<body>
+<h1>Küre Dizgi</h1>
+<p>A. Tolga Suyolcuğlu’nun <em>Melissa Önermesi</em> şiirinin dizgisi için geliştirilen araçlar.</p>
+<p>Şiiri bir küre üzerinde düzenleyin; kitap için ölçülü baskı projeksiyonları hazırlayın. Bu bağımsız pakette gerçek şiir veya kitap belgeleri değil, araçlar ve tarafsız örnekler bulunur.</p>
+<div class="tools">
+<a class="card" href="editor/index.html"><strong>Şiir editörü</strong>Zengin metin, 3B küre, yaprak açılımı, JSON / SVG / PNG.</a>
+<a class="card" href="compare/index.html"><strong>Kitap projeksiyonu</strong>A / B eğrilikleri; 10,5 pt / 13 pt hedefi, 20 mm sınır ölçümü.</a>
+</div>
+<p class="note"><a href="https://github.com/ekaynac/kure-dizgi">GitHub kaynak kodu</a> · Kendi araç kodumuz MIT lisanslıdır; şiir ve üçüncü taraf bileşenler ayrı haklara tabidir. Yüklediğiniz şiir tarayıcıda işlenir; uygulama metninizi sunucuya göndermez.</p>
+<h2>Belgeler</h2>
+<ul>
+<li><a href="README.md">Başlangıç ve bütün belge bağlantıları</a></li>
+<li><a href="docs/editor.md">Editör ve JSON yedekleri</a></li>
+<li><a href="docs/typography.md">Punto, satır arası ve projeksiyon bedeli</a></li>
+<li><a href="docs/production.md">PDF / IDML üretimi</a></li>
+<li><a href="docs/privacy-and-rights.md">Özel arşiv, haklar ve barındırma açıklaması</a></li>
+<li><a href="docs/github-provenance.md">Önceki GitHub yayını araştırması</a></li>
+<li><a href="docs/third-party.md">Üçüncü taraf lisansları</a></li>
+</ul>
+<p>Canlı araçlar doğrudan bu sitede çalışır. Çevrimdışı kullanım için kaynak paketini indirip <code>index.html</code> dosyasını açabilirsiniz. Yerel kopyadan fontları gömülü kitap SVG’si indirmek için bu klasörde <code>python -m http.server 8000 --bind 127.0.0.1</code> çalıştırın; <code>http://127.0.0.1:8000/</code> adresini açın. Ayrıntılar README’de.</p>
+</body>
+</html>

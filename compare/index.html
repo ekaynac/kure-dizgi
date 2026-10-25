@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Küre Dizgi — kitap projeksiyonu</title>
+<link rel="stylesheet" href="../fonts/fonts.css"><link rel="stylesheet" href="compare.css">
+<script defer src="../src/layout.js"></script><script defer src="../src/book-projection.js"></script>
+<script defer src="../examples/demo.js"></script><script defer src="compare.js"></script>
+</head>
+<body>
+<header>
+ <nav><a href="../index.html">Araçlar</a> · <a href="../editor/index.html">Şiir editörü</a> · <a href="../docs/typography.md">Tipografi açıklaması</a></nav>
+ <h1>Kitap projeksiyonu · A / B</h1>
+ <p>Şirazede gerçek punto korunur; dışa doğru yatay kısalma uygulanır. Metin yeniden satırlara bölünmez. Bu bir <strong>baskı kompozisyonudur, fiziksel küre kesim kalıbı değildir</strong>. A: ±30°, B: ±43,4° eğrilik.</p>
+ <div class="toolbar">
+  <label>Metin JSON’u <input id="import" type="file" accept=".json,application/json"></label>
+  <button id="demo">Tarafsız örneğe dön</button>
+  <label>Punto <input id="font" type="number" min="6" max="24" step="0.25" value="10.5"></label>
+  <label>Satır arası (pt) <input id="leading" type="number" min="8" max="40" step="0.1" value="13"></label>
+  <button id="reference">10,5 / 13 pt</button><button id="fill">Dikey alanı kullan</button>
+ </div>
+ <div class="toolbar">
+  <label>Açılım <select id="pair"></select></label>
+  <label>Görünüm <select id="view"><option value="all">A ve B birlikte</option><option value="0">A · sakin</option><option value="1">B · dengeli</option></select></label>
+  <label><input id="guides" type="checkbox">20 mm sınırları</label>
+  <label><input id="grid" type="checkbox">Yoğun küre kafesi</label>
+  <button id="print">Görünen açılımı yazdır</button><button id="print-all">Seçili sürümün 8 açılımını yazdır</button><button id="svg">SVG indir</button>
+ </div>
+ <p id="status" role="status">Fontlar yükleniyor…</p><p id="error" role="alert"></p>
+ <p class="small">Sayfa: 130 × 195 mm; yazı alanı: 90 × 155 mm. Ölçümde her kenara ayrıca 0,5 mm güvenlik payı eklenir. Punto hiçbir zaman gizlice küçültülmez: sığmayan ayar açıkça reddedilir. “Dikey alanı kullan” satır arasını artırır; 13 pt değerini korumaz.</p>
+</header>
+<main id="cards"></main>
+<footer>Metin yalnız bu oturumda tutulur; sunucuya gönderilmez ve tarayıcı deposuna yazılmaz. Editörde JSON olarak kaydettiğiniz çalışmayı buraya yükleyin. Özel şiirler açık kaynak örneğe dahil değildir. <a href="../docs/production.md">PDF / InDesign iş akışı</a></footer>
+</body></html>

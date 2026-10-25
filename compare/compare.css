@@ -1,0 +1,42 @@
+* { box-sizing: border-box; }
+body { margin: 0; color: #222; background: #e9e8e5; font: 15px system-ui, sans-serif; }
+header { padding: 20px 24px; background: #faf9f6; border-bottom: 1px solid #bbb; }
+nav { font-size: 13px; }
+h1 { margin: 12px 0; font-size: 24px; }
+p { max-width: 1100px; line-height: 1.5; }
+a { color: #274f7c; }
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 12px 0; }
+label { display: inline-flex; align-items: center; gap: 6px; }
+input[type=number] { width: 76px; }
+input[type=file] { max-width: 240px; }
+button, select, input[type=number] { padding: 7px; font: inherit; background: white; border: 1px solid #999; border-radius: 5px; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .5; }
+.small, #status { font-size: 13px; }
+#error { color: #9a2020; font-weight: 600; }
+main { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; padding: 18px; }
+.card { min-width: 0; }
+.card h2 { font-size: 18px; }
+.spread { display: block; width: 100%; height: auto; background: white; box-shadow: 0 2px 9px #0002; }
+.art text { font-family: 'Crimson Pro'; fill: #111; text-anchor: middle; dominant-baseline: central; }
+.spine { stroke: #ddd; stroke-width: .15; }
+.gridline { fill: none; stroke: #a99f8b; stroke-width: .15; }
+.silhouette { fill: none; stroke: #948975; stroke-width: .22; }
+.guides { display: none; }
+.guides-on .guides { display: block; }
+.safe { fill: none; stroke: #bc6262; stroke-width: .18; stroke-dasharray: 1 1; }
+.measure { position: absolute; top: 0; left: -100000px; visibility: hidden; }
+.focus main { max-width: 1400px; margin: auto; grid-template-columns: 1fr; }
+.focus .card:not(.selected) { display: none; }
+footer { padding: 12px 24px 28px; font-size: 13px; }
+@media (max-width: 850px) { main { grid-template-columns: 1fr; } }
+@page { size: 260mm 195mm; margin: 0; }
+@media print {
+ body { background: white; }
+ header, footer, .card h2 { display: none; }
+ main, .focus main { display: block; padding: 0; margin: 0; max-width: none; }
+ .card { display: block; width: 260mm; height: 195mm; break-after: page; }
+ .focus .card:not(.selected) { display: none; }
+ .spread { width: 260mm; height: 195mm; box-shadow: none; }
+ .guides { display: none !important; }
+}
